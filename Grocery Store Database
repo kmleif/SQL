@@ -16,3 +16,7 @@ FROM groceries
 GROUP BY aisle;
 
 SELECT item, SUM(price) AS total_price FROM groceries GROUP BY item;
+
+SELECT item, SUM(price) AS total_price FROM groceries GROUP BY item
+HAVING total_price > 5.00;
+
