@@ -60,14 +60,20 @@ SELECT destination_travel.destination, travel_friends.name
 	ON destination_travel.mood = travel_friends.vibe;
 
 
-List new destination options with price under 4000
+List new destination options with price under 4000:
 SELECT destination FROM destination_travel HAVING price > 4000;
 
 
-List new destination options above the average price in decending order
+List new destination options above the average price in decending order:
 SELECT destination, price FROM destination_travel
 WHERE cost < (SELECT AVG (price) FROM destination_travel)
 ORDER BY price DESC;
+
+
+List new destinations options with the mood to learn:
+SELECT destination
+FROM destination_travel
+WHERE mood IN (SELECT mood from destination_travel WHERE mood='learn');
 
 
 List prior destinations traveled
