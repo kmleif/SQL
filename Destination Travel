@@ -57,12 +57,18 @@ List the best desitnation mood for each person's vide:
 SELECT destination_travel.destination, travel_friends.name
     FROM destination_travel
 	JOIN travel_friends
-	ON destination_travel.mood = travel_friends.vibe:
+	ON destination_travel.mood = travel_friends.vibe;
 
 
 List new destination options with price under 4000
 SELECT destination FROM destination_travel HAVING price > 4000;
 
 
+List new destination options above the average price in decending order
+SELECT destination, price FROM destination_travel
+WHERE cost < (SELECT AVG (price) FROM destination_travel)
+ORDER BY price DESC;
+
+
 List prior destinations traveled
-SELECT * prior_travel
+SELECT * prior_travel;
