@@ -1,0 +1,48 @@
+CREATE TABLE destination_travel
+    ("id", "destination", "tavel_time", "price")
+;
+
+CREATE TABLE prior_travel
+    ("id", "destination", "year_traveled")
+;
+
+CRATE TABLE travel_friends
+    ("id", "name", "vibe")
+;
+
+INSERT INTO destination_travel
+    ("destination", "tavel_time", "price")
+VALUES
+  ("1", "Fuji",	"5", "5000"),
+  ("2", "Bora Bora",	"6",	"6000"),
+  ("3", "Turks & Caicos",	"7",	"4000"),
+  ("4", "Bahamas",	"3",	"3500"),
+  ("5", "Maldives",	"7",	"4500"),
+  ("6", "Tahiti", "6",	"5500"),
+  ("7", "St. Lucia", "3",	"3200"),
+  ("8", "Maui",	"5",	"6300"),
+  ("9", "Bermuda",	"6",	"4700"),
+;
+
+INSERT INTO prior_travel
+    ("id", "destination", "year_traveled")
+VALUES
+  ("1",	"Mexico",	"2022"),
+  ("2",	"Jamaica",	"2019"),
+  ("3",	"Puerto Rico",	"2023"),
+  ("4",	"Honolulu",	"2020")
+;
+
+INSERT INTO travel_friends
+    ("id", "name", "vibe")
+VALUES
+  ('1',	"Sally",	"Party"),
+  ("2",	"Jane",	"Relax"),
+  ("3",	"Amy",	"Learn"),
+  ("4",	"Emma",	"Learn"),
+  ("5",	"Mia",	"Party"),
+  ("6",	"Luna",	"Relax"),
+;
+
+
+
