@@ -1,0 +1,79 @@
+Break Into Tech Final SQL Project
+We're going to work with a dataset called chinook, which represents a digital media store and includes tables for artists, albums, media tracks, invoices, and customers.
+
+1. Show Customers who are not in the US. 
+SELECT * FROM chinook.customers
+WHERE Country != 'USA'
+
+2. Show only the Customer names from Brazil.
+SELECT FirstName, LastName FROM chinook.customers
+WHERE Country = 'Brazil'
+
+3. Find the Invoices of customers who are from Brazil. The resulting table should show the customer's full name, Invoice ID, Date of the invoice, and billing country.
+SELECT customers.FirstName, customers.LastName, invoices.InvoiceID, invoices.InvoiceDate, invoices.BillingCountry
+FROM invoices
+INNER JOIN customers
+ON customers.CustomerId = invoices.CustomerId
+WHERE invoices.BillingCountry =  'Brazil'
+
+4. Show the Employees who are Sales Agents.
+SELECT * FROM employees
+WHERE Title = 'Sales Support Agent'
+
+5. Find the number of letters in each billing countries from the Invoice table.
+SELECT LENGTH (BillingCountry), BillingCountry FROM invoices
+6. Provide a query that shows the invoices associated with each sales agent. The resulting table should include the Sales Agent's full name.
+SELECT employees.FirstName AS 'Employee First Name', employees.LastName AS 'Employee Last Name',   
+invoices.InvoiceID  
+From employees , customers , invoices
+WHERE  customers.SupportRepId 
+AND employees.EmployeeId 
+AND invoices.CustomerId = customers.CustomerId;
+
+7. Show the Invoice Total, Customer name, Country, and Sales Agent name for all invoices and customers.
+SELECT customers.FirstName AS 'Customer First Name', customers.LastName AS 'Customer Last Name', customers.Country, employees.LastName AS 'Employee Last Name', invoices.InvoiceId, SUM(invoices.Total) as "Invoice Total"
+FROM employees, invoices, customers 
+WHERE invoices.CustomerId = customers.CustomerId
+AND customers.SupportRepId = employees.EmployeeId
+GROUP BY customers.FirstName
+
+8. How many Invoices were there in 2009?
+SELECT COUNT (InvoiceDate)
+FROM invoices
+WHERE InvoiceDate LIKE '%2009%'
+
+9. What are the total sales for 2009?
+SELECT SUM (invoice_items.UnitPrice * invoice_items.Quantity) AS Sales
+FROM invoices
+INNER JOIN invoice_items ON invoice_items.InvoiceId = invoices.InvoiceId
+ WHERE InvoiceDate LIKE '%2009%'
+
+10. Write a query that includes the purchased track name with each invoice line ID.
+SELECT tracks.Name, invoice_items.InvoiceId  
+FROM tracks
+INNER JOIN invoice_items
+ON tracks.TrackId = invoice_items.TrackId
+
+11. Write a query that includes the purchased track name AND artist name with each invoice line ID.
+SELECT tracks.Name as 'Track Name', albums.Title as 'Album Name' , genres.Name as 'Genre'
+FROM tracks, albums, genres
+WHERE tracks.AlbumID = albums.AlbumId
+AND tracks.GenreId = genres.GenreId;
+
+12. Show the total sales made by each sales agent.
+SELECT employees.FirstName, employees.LastName, SUM(invoices.Total) as "Total Sales"
+FROM employees, invoices, customers 
+WHERE invoices.CustomerId = customers.CustomerId
+AND customers.SupportRepId = employees.EmployeeId
+AND employees.Title == "Sales Support Agent"
+GROUP BY employees.FirstName
+
+13. Which sales agent made the most dollars in sales in 2009?
+SELECT employees.FirstName, employees.LastName, SUM(invoices.Total) as "Total Sales"
+FROM employees, invoices, customers 
+WHERE invoices.CustomerId = customers.CustomerId
+AND invoices.InvoiceDate LIKE '%2009%'
+AND customers.SupportRepId = employees.EmployeeId
+AND employees.Title == "Sales Support Agent"
+GROUP BY employees.FirstName
+ORDER BY SUM (invoices.Total) DESC
